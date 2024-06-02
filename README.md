@@ -1,7 +1,7 @@
 # Detect-Desktop
-A UI program for testing YOLO object detection models on Windows platforms
+用于Windows平台下测试目标检测YOLO模型的可视化UI界面
 
-# platform
+# 运行环境
 Opencv==4.x  
 Qt==6.7.1  
 Windows 11  
