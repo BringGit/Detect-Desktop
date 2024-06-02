@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style.qss</file>
+        <file>assets/checked.png</file>
+        <file>assets/unchecked.png</file>
+        <file>assets/close.png</file>
+        <file>assets/maxmize.png</file>
+        <file>assets/minimize.png</file>
+        <file>assets/icon.png</file>
+    </qresource>
+</RCC>
