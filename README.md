@@ -7,7 +7,7 @@
 # 运行环境
 Opencv==4.x  
 Qt==6.7.1  
-OpenVINO
+OpenVINO  
 Windows 11  
 
 
