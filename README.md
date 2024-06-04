@@ -1,10 +1,15 @@
 # Detect-Desktop
 用于Windows平台下测试目标检测YOLO模型的可视化UI界面
 
+# 更新
+[2024.6.4] 增加OpenVINO推理  
+
 # 运行环境
 Opencv==4.x  
 Qt==6.7.1  
+OpenVINO
 Windows 11  
+
 
 # UI Window
 ![image](/imgs/main.png)
