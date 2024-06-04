@@ -23,5 +23,9 @@ int main(int argc, char *argv[])
 
 
     w.show();
+    QScreen *scr = a.primaryScreen();
+    int scr_w = scr->size().width();
+    int scr_h = scr->size().height();
+    w.move((scr_w - w.width()) / 2, (scr_h - w.height()) / 2);
     return a.exec();
 }

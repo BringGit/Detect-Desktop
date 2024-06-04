@@ -43,7 +43,7 @@ void MainWindow::Initial()
     cfg.classfile = "";
     cfg.runOnGPU = false;
     cfg.useCamera = false;
-
+    cfg.runOnOpenvino = true;
     classInitFlag = false;
 
     detector = new DetectPool(cfg);
@@ -65,6 +65,7 @@ void MainWindow::Initial()
     ui->tscore_btn->setChecked(true);
     ui->closecam_btn->setChecked(true);
     ui->closegpu_btn->setChecked(true);
+    ui->openov_btn->setChecked(true);
     ui->information_label->setText(tr("推理时间:  ms     检测目标数:"));
     create_classframe();
 
@@ -113,6 +114,38 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    /*当鼠标左键点击时.*/
+    if (event->button() == Qt::LeftButton)
+    {
+        m_move = true;
+        /*记录鼠标的世界坐标.*/
+        m_startPoint = event->globalPos();
+        /*记录窗体的世界坐标.*/
+        m_windowPoint = this->frameGeometry().topLeft();
+    }
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->buttons() & Qt::LeftButton)
+    {
+        /*移动中的鼠标位置相对于初始位置的相对位置.*/
+        QPoint relativePos = event->globalPos() - m_startPoint;
+        /*然后移动窗体即可.*/
+        this->move(m_windowPoint + relativePos );
+    }
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        /*改变移动状态.*/
+        m_move = false;
+    }
+}
 void MainWindow::UpdateConfig(Config cfg)
 {
     det_cfg = cfg;
@@ -153,10 +186,15 @@ void MainWindow::on_document_btn_clicked()
 
 void MainWindow::on_model_btn_clicked()
 {
-    QString s = QFileDialog::getOpenFileName(this,"选择文件","./", tr("模型文件(*onnx)"));
+    QString s = QFileDialog::getOpenFileName(this,"选择文件","./", tr("模型文件(*onnx, *xml)"));
     ui->model_lineEdit->setText(s);
+
     Config cfg;
     cfg.onnxPath = s.toStdString();
+    if (s.contains(".xml"))
+    {
+        cfg.runOnOpenvino = true;
+    }
     detector->UpdateConfig(cfg);
 }
 
@@ -404,5 +442,23 @@ void MainWindow::on_max_btn_clicked()
 void MainWindow::on_close_btn_clicked()
 {
     this->close();
+}
+
+
+void MainWindow::on_openov_btn_clicked()
+{
+    Config cfg;
+    cfg = detector->GetConfig();
+    cfg.runOnOpenvino = true;
+    detector->UpdateConfig(cfg);
+}
+
+
+void MainWindow::on_closeov_btn_clicked()
+{
+    Config cfg;
+    cfg = detector->GetConfig();
+    cfg.runOnOpenvino = false;
+    detector->UpdateConfig(cfg);
 }
 

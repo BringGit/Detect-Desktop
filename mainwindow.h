@@ -20,6 +20,9 @@ public:
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
 
 private slots:
     void on_document_btn_clicked();
@@ -72,6 +75,10 @@ private slots:
 
     void on_close_btn_clicked();
 
+    void on_openov_btn_clicked();
+
+    void on_closeov_btn_clicked();
+
 private:
     void create_classframe();
     void clear_classframe();
@@ -81,6 +88,10 @@ private:
     Ui::MainWindow *ui;
     QTimer *playtimer;
     bool classInitFlag;
+
+    bool m_move;
+    QPoint m_startPoint;
+    QPoint m_windowPoint;
 
     // std::vector<std::string> classes{"person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat", "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake", "chair", "couch", "potted plant", "bed", "dining table", "toilet", "tv", "laptop", "mouse", "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush"};
     std::vector<std::string> classes;

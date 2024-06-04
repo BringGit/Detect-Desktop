@@ -18,6 +18,7 @@ struct Config {
 	std::string classfile = "";
 	bool useCamera = false;
 	bool runOnGPU = false;
+    bool runOnOpenvino = false;
     float ConfidenceThreshold = 0.25;
     float ScoreThreshold = 0.45;
     float NMSThreshold = 0.50;

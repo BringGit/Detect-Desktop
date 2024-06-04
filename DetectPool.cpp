@@ -3,7 +3,7 @@
 DetectPool::DetectPool(Config cfg) : config(cfg)
 {
 
-	Inf = new Inference(config.onnxPath, config.inputSize, config.classfile, config.runOnGPU);
+    Inf = new Inference(config.onnxPath, config.inputSize, config.classfile, config.runOnGPU, config.runOnOpenvino);
     // if (config.useCamera)
  //        OpenCamera(0, false);
 	
@@ -59,8 +59,15 @@ cv::Mat DetectPool::GetOutPut(cv::Mat frame, double& infTime, int& numDet)
 {
     cv::Mat outimg = frame.clone();
 
-
-    std::vector<Detection> output = Inf->runInference(outimg, infTime);
+    std::vector<Detection> output;
+    if (config.runOnOpenvino)
+    {
+        output = Inf->runOpenvinoInference(outimg, infTime);
+    }
+    else
+    {
+        output = Inf->runInference(outimg, infTime);
+    }
 
     int detections = output.size();
     numDet = detections;
@@ -106,11 +113,11 @@ void DetectPool::UpdateMap(int id, bool use){
 
 void DetectPool::UpdateConfig(struct Config cfg)
 {
-    if ((!cfg.onnxPath.empty() && config.onnxPath != cfg.onnxPath) || (config.runOnGPU != cfg.runOnGPU))
+    if ((!cfg.onnxPath.empty() && config.onnxPath != cfg.onnxPath) || (config.runOnGPU != cfg.runOnGPU) || (config.runOnOpenvino != config.runOnOpenvino))
     {
         config.onnxPath = cfg.onnxPath;
         config.runOnGPU = cfg.runOnGPU;
-        Inf->loadOnnxNetwork(config.onnxPath, config.runOnGPU);
+        Inf->loadNetwork(config.onnxPath, config.runOnGPU, config.runOnOpenvino);
         if ((cfg.inputSize.width !=0 && cfg.inputSize.height !=0) && (cfg.inputSize != config.inputSize))
         {
             config.inputSize = cfg.inputSize;

@@ -11,6 +11,7 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/dnn.hpp>
+#include <openvino/openvino.hpp>
 
 struct Detection
 {
@@ -24,11 +25,12 @@ struct Detection
 class Inference
 {
 public:
-    Inference(const std::string &onnxModelPath, const cv::Size &modelInputShape = {640, 640}, const std::string &classesTxtFile = "", const bool &runWithCuda = true);
+    Inference(const std::string &onnxModelPath, const cv::Size &modelInputShape = {640, 640}, const std::string &classesTxtFile = "", const bool &runWithCuda = true, const bool &runWithOpenvino=true);
     std::vector<Detection> runInference(const cv::Mat &input, double& infTime);
+    std::vector<Detection> runOpenvinoInference(const cv::Mat &input, double& infTime);
     void UpdateDetectMap(int id, bool use);
     void loadClassesFromFile(std::string clsfile);
-    void loadOnnxNetwork(std::string modelPath, bool runOnGpu);
+    void loadNetwork(std::string modelPath, bool runOnGpu, bool runOnOv);
     void UpdateInputShape(cv::Size inputsize);
     void UpdateThreshold(float confidThr, float scoreThr, float nmsThr);
     void loadClasses(std::vector<std::string> &cls);
@@ -52,6 +54,10 @@ private:
     std::vector<cv::Scalar> colorsmaps;
     cv::dnn::Net net;
     std::vector<double> layersTimes;
+
+    ov::Core core;
+    ov::CompiledModel compiled_model;
+    ov::InferRequest infer_request;
 };
 
 #endif // INFERENCE_H

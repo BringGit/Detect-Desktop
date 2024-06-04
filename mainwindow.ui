@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>823</height>
+    <width>1426</width>
+    <height>925</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -122,7 +122,7 @@ QRadioButton::indicator:checked {
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_10">
+   <layout class="QVBoxLayout" name="verticalLayout_11">
     <item>
      <widget class="QGroupBox" name="titlebar">
       <property name="sizePolicy">
@@ -583,7 +583,7 @@ QRadioButton::indicator:checked {
           <property name="minimumSize">
            <size>
             <width>640</width>
-            <height>640</height>
+            <height>750</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -932,6 +932,55 @@ QRadioButton::indicator:checked {
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <item>
+               <widget class="QLabel" name="label_15">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Openvino推理:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="gpu_groupBox_2">
+                <layout class="QHBoxLayout" name="horizontalLayout_15">
+                 <item>
+                  <widget class="QRadioButton" name="openov_btn">
+                   <property name="text">
+                    <string>启用</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="closeov_btn">
+                   <property name="text">
+                    <string>关闭</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_8">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item>
              <widget class="QLabel" name="label_10">
               <property name="font">
