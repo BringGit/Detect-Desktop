@@ -194,6 +194,7 @@ void MainWindow::on_model_btn_clicked()
     if (s.contains(".xml"))
     {
         cfg.runOnOpenvino = true;
+        ui->openov_btn->setChecked(true);
     }
     detector->UpdateConfig(cfg);
 }
