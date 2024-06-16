@@ -40,7 +40,7 @@ if __name__ == "__main__":
     # export_ov()
     model = ov.Core().read_model("../yolov8m_openvino_model/yolov8m.xml")
     
-    dataset = coco.CocoDetection("E:/Project/Vision/Datasets/coco/val2017", annFile="E:/Project/Vision/Datasets/coco/annotations/instances_val2017.json", 
+    dataset = coco.CocoDetection(coco/val2017", annFile="coco/annotations/instances_val2017.json", 
                                  transform=transforms.Compose([transforms.Resize((640, 640)),
                                                                 transforms.ToTensor(),
                                                                transforms.Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])]))
